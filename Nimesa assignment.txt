@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class WeatherApp {
+    private static final String API_KEY = "zaCELgL. 0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx .";
+    private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=" + API_KEY;
+
+    private static String getWeatherData(String city) {
+        
+        return "{\"main\":{\"temp\":296.15}}"; // Example response (temperature in Kelvin)
+    }
+
+    private static void getWeatherByDate() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter city name: ");
+        String city = scanner.nextLine();
+
+        String weatherData = getWeatherData(city);
+        if (weatherData != null) {
+            // Parse the JSON response to get the temperature
+            double temperature = Double.parseDouble(weatherData.substring(weatherData.indexOf("temp\":") + 6, weatherData.indexOf("}")));
+            System.out.printf("Temperature in %s is %.2f Kelvin.\n", city, temperature);
+        } else {
+            System.out.println("Error fetching data. Please check your input or try again later.");
+        }
+    }
+
+    // Implement similar methods for other options (wind speed, pressure)
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nOptions:");
+            System.out.println("1. Get weather");
+            System.out.println("2. Get Wind Speed");
+            System.out.println("3. Get Pressure");
+            System.out.println("0. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    getWeatherByDate();
+                    break;
+               
+                case 0:
+                    System.out.println("Exiting the program. Goodbye!");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
